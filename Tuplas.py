@@ -39,3 +39,7 @@ escola, cidade = tupla #Alocando cada item da tupla a uma váriavel
 print(escola)
 print(cidade)
 
+#Gera ValueError se colocarmos um número diferente de elementos para desempacotar
+
+
+
