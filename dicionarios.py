@@ -98,7 +98,25 @@ print(receita)
 """
 #Remover dados de um dicionário
 
+receita = {'jan':100, 'fev': 120, 'mar':300}
 
+#Forma 1 - mais comum
+
+print(receita)
+ret = receita.pop('mar')
+print(ret)
+print(receita) 
+
+#Obs: aqui precisa sempre passar a chave,
+#e caso não encontra o elemento um KeyError é retornado
+#Obs: quando remove o objeto o valor é sempre retornado
+
+#Forma 2
+
+del receita['fev']  #del=deletar
+print(receita)
+
+#Neste caso o valor removido não é retornado
 
 
 
