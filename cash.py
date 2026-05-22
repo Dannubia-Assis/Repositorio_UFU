@@ -7,4 +7,6 @@ Variável: float
 Únicas moedas disponíveis: 0.25, 0.10, 0.05 e 0.01
 """
 troco = float(input("Digite o valor do troco: "))
+
 moedas = [0.25, 0.10, 0.05, 0.01] #Lista de moedas  
+

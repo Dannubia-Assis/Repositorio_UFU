@@ -95,7 +95,7 @@ print(receita)
 #é a mesma
 # Não pode existir chaves repetidas em dicionários
 
-"""
+
 #Remover dados de um dicionário
 
 receita = {'jan':100, 'fev': 120, 'mar':300}
@@ -117,6 +117,60 @@ del receita['fev']  #del=deletar
 print(receita)
 
 #Neste caso o valor removido não é retornado
+#Se tentar remover um elemento que não existe gera um KeyError
+#Limpar dicionário (Zerar dados)
+
+d.clear()
+print(d)
+
+# Métodos de dicionários
+
+d = dict(a=1, b=2, c=3)
+
+print(d)
+print(type(d))
+
+#Copiando um dicionário para outro
+
+#Forma 1 #Deep copy
+
+novo = d.copy() 
+
+print(novo)
+
+novo['d'] = 4
+
+print(d)
+print(novo)
+
+
+#Forma 2 Shallow Copy
+
+d = dict(a=1, b=2, c=3)
+
+print(d)
+print(type(d))
+
+novo = d
+
+print(novo)
+
+novo['d'] = 4
+
+print(d)
+print(novo)
+
+#Forma não usual de criação de usuário
+
+usuario = {}.fromkeys('teste', 'valor')
+print(usuario)
+
+#O método fromkeys recebe dois parâmetros: um interável e um valor
+# Ele vai gerar para cada valor do interável uma chave
+# e irá atribuir a esta chave o valor informado
+
+"""
+
 
 
 
