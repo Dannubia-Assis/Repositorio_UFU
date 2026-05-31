@@ -5,6 +5,38 @@ atualização e remoção (CRUD) de ativos de TI e de vulnerabilidades associada
 a esses ativos
 """
 from time import sleep
+from enum import Enum
+
+#Uso do Enum para classificar a lista de ativos
+class tipo_ativo(Enum):
+    Notebook = 10 
+    Impressora = 20
+    Roteador = 30
+    Software = 40
+
+#Enum para a categoria
+class categoria(Enum):
+    Autenticacao = 1 
+    Controle_de_acesso = 2
+    Softaware_desatualizado = 3
+    Rede= 4
+    Banco_de_dados = 5
+    Configuração_incorreta = 6
+
+#Enum para a severidade
+class severidade(Enum):
+    Baixa = 1 
+    Media = 2
+    Alta = 3
+
+#Enum para o status    
+class status(Enum):
+    Aberta = 1 
+    Em_tratamento = 2
+    Risco_aceito = 3
+    Corrigida = 4
+
+
 
 #Cria uma lista de ativos vazia
 ativos = {}
@@ -14,8 +46,6 @@ id_ativo = 1
 
 def cadastrar_ativo():
 
-    from enum import Enum
-
     global id_ativo
 
 #Menu de cadastros
@@ -23,20 +53,12 @@ def cadastrar_ativo():
 ====MENU 2 - CADASTRO====
 
 Bem vindo ao menu de cadastro!
-    
-    """ )
-
-#Uso do Enum para classificar a lista de ativos
-    class tipo_ativo(Enum):
-        Notebook = 10 
-        Impressora = 20
-        Roteador = 30
-        Software = 40
+""" )
 
     for tipo in tipo_ativo:
         print(f"{tipo.value} - {tipo.name}") 
 
-    codigo_ativo = int(input("Escolha o tipo de ativo: "))
+    codigo_ativo = int(input("\n\nEscolha o tipo de ativo: "))
     tipo_escolhido = tipo_ativo(codigo_ativo)
 
     nome = input("Nome do ativo: ")
@@ -57,67 +79,44 @@ Bem vindo ao menu de cadastro!
 
 def cadastrar_vulnerabilidade():
 
-    from enum import Enum
-
     id_busca = int(input("ID do ativo: "))
 
-    #Descrição de cada categoria de vulnerabilidade
-
-    print("""
-====Vulnerabilidades====
-Descricao: Descreva mais breve possivel a vulnerabilidade;
-Categoria:  Autenticação 
-            Controle de acesso
-            Software desatualizado
-            Rede
-            Banco de dados
-            Configuração incorreta
-          
-Severidade: Baixa
-            Media
-            Alta
-          
-    Status: Aberta
-            Em tratamento
-            Risco aceito
-            Corrigida          
-========================
-""" )
-
     if id_busca in ativos:
-        lista_severidades = ["baixa", "media", "alta", "critica"]
-        lista_status =["aberta", "em tratamento", "corrigida", "risco aceito"]
-        
-        descricao = input("Descrição: ")
-        categoria = input("Categoria: ")
+    
+    #Continua o cadastro de vulnerabilidade
+        descricao = input("Descrição da vulnerabilidade: ")
 
-        while True:
+        print("\nCategorias da vulnerabilidade:")
+        for tipo in categoria:
+            print(f"{tipo.value} - {tipo.name}") 
 
-            severidade = input("Severidade: ").lower()
+        codigo_categoria = int(input("\n\nEscolha a categoria: "))
+        categoria_escolhida = categoria(codigo_categoria)
 
-            if severidade in lista_severidades:
-                break
+        print("\nSeveridades da vulnerabilidade:")
+        for tipo in severidade:
+            print(f"{tipo.value} - {tipo.name}") 
 
-            print("\nSeveridade inválida")
+        codigo_severidade = int(input("\n\nEscolha a severidade: "))
+        severidade_escolhida = severidade(codigo_severidade)
 
-        while True:
-        
-            status = input("Status: ").lower()
+        print("\nStatus da vulnerabilidade:")
+        for tipo in status:
+            print(f"{tipo.value} - {tipo.name}") 
 
-            if status in lista_status:
-                break
-
-            print("\nStatus inválido")
+        codigo_status = int(input("\n\nEscolha o status: "))
+        status_escolhido = status(codigo_status)
 
 
-        vulnerabilidades = {
+        vulnerabilidade = {
             "descricao": descricao,
-            "categoria": categoria,
-            "severidade": severidade,
-            "status": status
+            "categoria": categoria_escolhida.name,
+            "severidade": severidade_escolhida.name,
+            "status": status_escolhido.name
+
         }
 
-        ativos[id_busca]["vulnerabilidades"].append(vulnerabilidades)
+        ativos[id_busca]["vulnerabilidades"].append(vulnerabilidade)
 
         print("\n\n\nVulnerabilidade cadastrada!")
 
