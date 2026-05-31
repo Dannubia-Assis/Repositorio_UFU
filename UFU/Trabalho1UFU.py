@@ -36,8 +36,6 @@ class status(Enum):
     Risco_aceito = 3
     Corrigida = 4
 
-
-
 #Cria uma lista de ativos vazia
 ativos = {}
 
@@ -123,7 +121,6 @@ def cadastrar_vulnerabilidade():
     else:
         print("\nAtivo não encontrado")
 
-
 def consultar_cadastro():
     #Verifica se existe ativos cadastrados na lista
     if not ativos:
@@ -149,15 +146,104 @@ def consultar_cadastro():
 
             for v in dados["vulnerabilidades"]:
 
-                print(f"Descrição: {v['descricao']}\n")
-                print(f"Categoria: {v['categoria']}\n")
-                print(f"Severidade: {v['severidade']}\n")
-                print(f"Status: {v['status']}\n")
+                print(f"Descrição: {v['descricao']}")
+                print(f"Categoria: {v['categoria']}")
+                print(f"Severidade: {v['severidade']}")
+                print(f"Status: {v['status']}")
                 print("____________________________________\n")
 
-
 def atualizar_cadastro():
-    pass
+    
+    print("""
+==========Atualizacao==========
+          
+1 - Atualizar dados do ativo
+2 - Atualizar dados de vulnerabilidades          
+
+""")      
+    opcao = int(input("Escolha qual tipo de dado deseja atualizar: "))
+
+    match opcao:
+
+        case 1: 
+            atualizar_ativo()
+
+        case 2: 
+            atualizar_vulnerabilidade()
+
+        case _:
+            print("Opcao invalida!")
+
+def atualizar_ativo():
+    
+    id_busca = int(input("Digite o ID do ativo: \n"))
+
+    if id_busca not in ativos:
+        print("\nO ativo nao foi encontrado!")
+        return
+
+    ativo = ativos[id_busca]
+
+    print("\nPressione ENTER para manter o valor atual.")
+    
+    nome = input(f"Nome ({ativo['nome']}): ")
+    responsavel = input(f"Responsavel ({ativo['responsavel']}): ")
+    setor = input(f"Setor ({ativo['setor']}): ")
+   
+
+    if nome:
+        ativo["nome"] = nome
+
+    if responsavel:
+        ativo["responsavel"] = responsavel
+
+    if setor:
+        ativo["setor"] = setor
+
+    print("\nO cadastro foi atualizado com sucesso!")
+
+def atualizar_vulnerabilidade():
+
+    #Verifica se o ID existe e se o ativo alocado no ID possuiu vulnerabilidade cadastrada
+    id_busca = int(input("Digite o ID do ativo: \n"))
+
+    if id_busca not in ativos:
+        print("\nO ativo nao foi encontrado!")
+        return
+    
+    vulnerabilidade = ativos[id_busca]["vulnerabilidades"]
+
+    if not vulnerabilidade:
+        print("Este ativo nao possui vulnerabilidades.")
+        return
+
+    print("\nVulnerabilidades:")
+
+    for indice, v in enumerate(vulnerabilidade, start=1):
+        print(f"{indice} - {v['descricao']}")
+
+    escolha = int(input("Escolha a vulnerabilidade")) - 1
+
+    v = vulnerabilidade[escolha]
+
+    descricao = input(f"Descrição ({v['descricao']}): ")
+    categoria = input(f"Categoria ({v['categoria']}): ")
+    severidade = input(f"Severidade ({v['severidade']}): ")
+    status = input(f"Status ({v['status']}): ")
+
+    if descricao:
+        v["descricao"] = descricao
+
+    if categoria:
+        v["categoria"] = categoria
+
+    if severidade:
+        v["severidade"] = severidade
+
+    if status:
+        v["status"] = status
+
+    print("Vulnerabilidade atualizada!")
 
 def excluir_cadastro():
 
