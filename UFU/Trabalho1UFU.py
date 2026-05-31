@@ -158,7 +158,8 @@ def atualizar_cadastro():
 ==========Atualizacao==========
           
 1 - Atualizar dados do ativo
-2 - Atualizar dados de vulnerabilidades          
+2 - Atualizar dados de vulnerabilidades     
+3 - Atualizar ambos     
 
 """)      
     opcao = int(input("Escolha qual tipo de dado deseja atualizar: "))
@@ -169,6 +170,10 @@ def atualizar_cadastro():
             atualizar_ativo()
 
         case 2: 
+            atualizar_vulnerabilidade()
+
+        case 3:
+            atualizar_ativo()
             atualizar_vulnerabilidade()
 
         case _:
