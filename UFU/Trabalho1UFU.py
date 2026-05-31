@@ -7,7 +7,7 @@ a esses ativos
 from time import sleep
 from enum import Enum
 
-#Uso do Enum para classificar a lista de ativos
+#Uso do Enum para classificar a cada ativos cadastrado
 class tipo_ativo(Enum):
     Notebook = 10 
     Impressora = 20
@@ -152,7 +152,7 @@ def consultar_cadastro():
                 print(f"Status: {v['status']}")
                 print("____________________________________\n")
 
-def atualizar_cadastro():
+def menu_atualizar_cadastro():
     
     print("""
 ==========Atualizacao==========
@@ -227,7 +227,7 @@ def atualizar_vulnerabilidade():
     for indice, v in enumerate(vulnerabilidade, start=1):
         print(f"{indice} - {v['descricao']}")
 
-    escolha = int(input("Escolha a vulnerabilidade")) - 1
+    escolha = int(input("\nEscolha a vulnerabilidade: ")) - 1
 
     v = vulnerabilidade[escolha]
 
@@ -248,7 +248,7 @@ def atualizar_vulnerabilidade():
     if status:
         v["status"] = status
 
-    print("Vulnerabilidade atualizada!")
+    print("Vulnerabilidade atualizada!\n\n")
 
 def excluir_cadastro():
 
@@ -271,8 +271,8 @@ def menu():
 
     while True:
 
-        print(
-"""====MENU 1 - INICIAL====
+        print("""
+======MENU 1 - INICIAL=====
 
 Opções:
 1 - Cadastrar
@@ -282,7 +282,7 @@ Opções:
 5 - Excluir
 6 - Sair
 
-===========================
+============================
 """)
 
         opcao = input("Escolha: ")
@@ -307,7 +307,7 @@ Opções:
             case "4":
                 print("\n\nAguarde! Abrindo para atualizar o cadastro de ativos...\n\n")
                 sleep(2)
-                atualizar_cadastro()
+                menu_atualizar_cadastro()
 
             case "5":
                 print("\n\nAguarde! Abrindo para excluir cadastro de ativo...\n\n")
@@ -319,6 +319,6 @@ Opções:
                 break
 
             case _:
-                print("Opção inválida")
+                print("Digite uma opção valida!")
 
 menu()

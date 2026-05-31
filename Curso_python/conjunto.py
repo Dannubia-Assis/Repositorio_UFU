@@ -16,7 +16,7 @@ Diferença entre conjuntos (sets) e mapas (dicionários)
     - Dicionário tem chave/valor
     - Conjunto tem apenas valor 
 
-"""
+    
 #Definindo um conjunto:
 
 #Forma 1
@@ -41,3 +41,6 @@ if 3 in s:
     print('Tem o 3')
 else:
     print('Não tem o 3')    
+"""
+#Importante lembrar que alem de não termos valores duplicados não temos ordem
+

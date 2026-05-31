@@ -125,7 +125,6 @@ def cores_favoritas(**kwargs):
 #Os parametros *args e **kwargs não são obrigatorios
 cores_favoritas(Marcos='verde', Ana = 'Rosa', Vanessa = 'Branco')
 
-"""
 # Exemplo mais complexo
 
 def cumprimento_especial(**kwargs):
@@ -139,4 +138,14 @@ print(cumprimento_especial())
 print(cumprimento_especial(geek = 'Python'))
 print(cumprimento_especial(geek = 'Você'))
 print(cumprimento_especial(geek = 'Especial'))
+
+#Nas funções podemos ter (nessa ordem):
+
+- Parametro obrigatorios
+- *args
+- Parametros default (não obrigatorios)
+- **kwargs
+
+"""
+
 
