@@ -6,6 +6,7 @@ a esses ativos
 """
 from time import sleep
 from enum import Enum
+import os
 
 #Uso do Enum para classificar a cada ativos cadastrado
 class tipo_ativo(Enum):
@@ -42,17 +43,18 @@ ativos = {}
 #Inicializador da contagem do ID de ativos cadastrados
 id_ativo = 1
 
+#Funcoes do sistema
 def cadastrar_ativo():
 
     global id_ativo
 
 #Menu de cadastros
-    print("""
-====MENU 2 - CADASTRO====
+    print("""  
+====MENU 2 - CADASTRO DE ATIVO====
 
-Bem vindo ao menu de cadastro!
+Tipos de ativo:
 """ )
-
+    
     for tipo in tipo_ativo:
         print(f"{tipo.value} - {tipo.name}") 
 
@@ -75,7 +77,14 @@ Bem vindo ao menu de cadastro!
 
     id_ativo += 1
 
+    voltar_menu()
+
 def cadastrar_vulnerabilidade():
+
+    #Menu de cadastro de vulnerabilidade
+    print("""  
+====MENU 2 - CADASTRO DE VULNERABILIDADES====
+""" )
 
     id_busca = int(input("ID do ativo: "))
 
@@ -121,7 +130,14 @@ def cadastrar_vulnerabilidade():
     else:
         print("\nAtivo não encontrado")
 
+    voltar_menu()
+
 def consultar_cadastro():
+
+    #Menu de consulta de cadastro
+    print("""  
+====MENU 3 - CONSULTA DE CADASTRO====
+""" )
     #Verifica se existe ativos cadastrados na lista
     if not ativos:
 
@@ -152,10 +168,12 @@ def consultar_cadastro():
                 print(f"Status: {v['status']}")
                 print("____________________________________\n")
 
+    voltar_menu()
+
 def menu_atualizar_cadastro():
     
     print("""
-==========Atualizacao==========
+==========MENU 4 - ATUALIZACAO DE CADASTROS==========
           
 1 - Atualizar dados do ativo
 2 - Atualizar dados de vulnerabilidades     
@@ -181,10 +199,10 @@ def menu_atualizar_cadastro():
 
 def atualizar_ativo():
     
-    id_busca = int(input("Digite o ID do ativo: \n"))
+    id_busca = int(input("\nDigite o ID do ativo: "))
 
     if id_busca not in ativos:
-        print("\nO ativo nao foi encontrado!")
+        print("\nO ativo nao foi encontrado!\n\n")
         return
 
     ativo = ativos[id_busca]
@@ -206,6 +224,8 @@ def atualizar_ativo():
         ativo["setor"] = setor
 
     print("\nO cadastro foi atualizado com sucesso!")
+
+    voltar_menu()
 
 def atualizar_vulnerabilidade():
 
@@ -248,10 +268,16 @@ def atualizar_vulnerabilidade():
     if status:
         v["status"] = status
 
-    print("Vulnerabilidade atualizada!\n\n")
+    print("\nVulnerabilidade atualizada!\n\n")
+
+    voltar_menu()
 
 def excluir_cadastro():
 
+#Menu de exclusao de cadastros
+    print("""  
+====MENU 5 - EXCLUIR CADASTRO====
+""" )
     global id_ativo
 
     id_busca = int(input("Digite o ID do ativo que deseja excluir: "))
@@ -265,16 +291,26 @@ def excluir_cadastro():
     else: 
         print("\nAtivo não encontrado!")
 
-#Menu de opções iniciais
+    voltar_menu()
 
+def voltar_menu():
+    input("\nPressione ENTER para retornar ao menu inicial!")
+
+    #Limpar tela
+    os.system("cls") 
+
+#Menu de opções iniciais
 def menu():
 
     while True:
 
-        print("""
-======MENU 1 - INICIAL=====
+        print("""              
+Bem vindo ao sistema CRUD de ativos de TI!
+              
+======MENU 1 - INICIAL=========
 
-Opções:
+Escolha uma opcao para iniciar:
+              
 1 - Cadastrar
 2 - Cadastrar vulnerabilidades 
 3 - Consultar 
@@ -282,7 +318,7 @@ Opções:
 5 - Excluir
 6 - Sair
 
-============================
+===============================
 """)
 
         opcao = input("Escolha: ")
