@@ -18,7 +18,7 @@ class tipo_ativo(Enum):
 
 #Enum para a categoria
 class categoria(Enum):
-    Autenticacao = 1 
+    Autenticação = 1 
     Controle_de_acesso = 2
     Software_desatualizado = 3
     Rede= 4
@@ -117,14 +117,14 @@ def cadastrar_vulnerabilidade():
             print("Digite apenas números!")
 
     if id_busca not in ativos:
-        print("\nAtivo nao encontrado.")
+        print("\nAtivo não encontrado.")
         voltar_menu()
         return
     
     if ativos[id_busca]["vulnerabilidades"]:
         print(
         "\nEste ativo já possui uma vulnerabilidade cadastrada."
-        "\nPara modificar os dados ja cadastrados va em ""4 - ATUALIZAR"" no Menu Inicial.")
+        "\nPara modificar os dados já cadastrados vá em ""4 - ATUALIZAR"" no Menu Inicial.")
         voltar_menu()
         return
 
@@ -264,7 +264,7 @@ def menu_atualizar_cadastro():
             atualizar_vulnerabilidade()
 
         case _:
-            print("Opcao invalida!")
+            print("Opção inválida!")
 
 def atualizar_ativo():
     
@@ -281,7 +281,7 @@ def atualizar_ativo():
         
 
     if id_busca not in ativos:
-        print("\nO ativo nao foi encontrado!\n\n")
+        print("\nO ativo não foi encontrado!\n\n")
         return
 
     ativo = ativos[id_busca]
@@ -322,13 +322,13 @@ def atualizar_vulnerabilidade():
             print("Digite apenas números.")
 
     if id_busca not in ativos:
-        print("\nO ativo nao foi encontrado!")
+        print("\nO ativo não foi encontrado!")
         return
     
     vulnerabilidade = ativos[id_busca]["vulnerabilidades"]
 
     if not vulnerabilidade:
-        print("Este ativo nao possui vulnerabilidades.")
+        print("Este ativo não possui vulnerabilidades.")
         return
 
     v = vulnerabilidade[0]
@@ -339,21 +339,21 @@ def atualizar_vulnerabilidade():
 
     #Atualizar categoria
     
-    print("\nCategorias disponiveis:")
+    print("\nCategorias disponíveis:")
     for item in categoria:
         print(f"{item.value} - {item.name}")
 
     codigo_categoria = input(f"Categoria atual ({v['categoria']}) (ENTER para manter): ")
 
     #Atualizar severidade
-    print("\nSeveridades disponiveis:")
+    print("\nSeveridades disponíveis:")
     for item in severidade:
         print(f"{item.value} - {item.name}")
 
     codigo_severidade = input(f"Severidade atual ({v['severidade']}) (ENTER para manter): ")
 
     #Atualizar status
-    print("\nStatus disponiveis:")
+    print("\nStatus disponíveis:")
     for item in status:
         print(f"{item.value} - {item.name}")
 
@@ -368,14 +368,14 @@ def atualizar_vulnerabilidade():
             v["categoria"] = categoria(int(codigo_categoria)).name
 
         except ValueError:
-            print("Categoria invalida.")
+            print("Categoria inválida.")
     
     if codigo_severidade:
         try:
             v["severidade"] = severidade(int(codigo_severidade)).name
         
         except ValueError:
-            print("Severidade invalida.")
+            print("Severidade inválida.")
         
 
     if codigo_status:
@@ -383,7 +383,7 @@ def atualizar_vulnerabilidade():
             v["status"] = status(int(codigo_status)).name
 
         except ValueError:
-            print("Status invalido.")
+            print("Status inválido.")
 
     print("\nVulnerabilidade atualizada com sucesso!\n\n")
 
@@ -413,7 +413,7 @@ def excluir_cadastro():
 
         del ativos[id_busca]
 
-        print("\nAtivo excluido com sucesso!")
+        print("\nAtivo excluído com sucesso!")
 
     else: 
         print("\nAtivo não encontrado!")
@@ -492,35 +492,35 @@ Escolha uma opcao para iniciar:
 
             case "1":
                 print("Aguarde! Abrindo cadastro de ativos...")
-                sleep(2)
+                sleep(1)
                 cadastrar_ativo()
 
             case "2":
                 print("\n\nAguarde! Abrindo cadastro de vulnerabilidades...\n\n")
-                sleep(2)
+                sleep(1)
                 cadastrar_vulnerabilidade()
 
             case "3":
                 print("\n\nAguarde! Abrindo para consulta de ativos...\n\n")
-                sleep(2)
+                sleep(1)
                 consultar_cadastro()
     
             case "4":
                 print("\n\nAguarde! Abrindo para atualizar o cadastro de ativos...\n\n")
-                sleep(2)
+                sleep(1)
                 menu_atualizar_cadastro()
 
             case "5":
                 print("\n\nAguarde! Abrindo para excluir cadastro de ativo...\n\n")
-                sleep(2)
+                sleep(1)
                 excluir_cadastro()
 
             case "6":
-                print("Saindo... Ate logo!")
+                print("Saindo... Até logo!")
                 break
 
             case _:
-                print("Digite uma opção valida!")
+                print("Digite uma opção válida!")
 
 #Carrega os dados ao iniciar
 carregar_dados()
