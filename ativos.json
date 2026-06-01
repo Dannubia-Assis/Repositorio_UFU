@@ -12,5 +12,47 @@
                 "status": "Em andamento"
             }
         ]
+    },
+    "3": {
+        "tipo": "Impressora",
+        "nome": "Canon",
+        "responsavel": "Giovanna",
+        "setor": "Renova Contabilidade",
+        "vulnerabilidades": [
+            {
+                "descricao": "Rede aberta",
+                "categoria": "Controle_de_acesso",
+                "severidade": "Alta",
+                "status": "Risco_aceito"
+            }
+        ]
+    },
+    "4": {
+        "tipo": "Notebook",
+        "nome": "Asus",
+        "responsavel": "Guilherme",
+        "setor": "Contabilidade",
+        "vulnerabilidades": [
+            {
+                "descricao": "Aparelho conectado fora da intranet",
+                "categoria": "Rede",
+                "severidade": "Alta",
+                "status": "Em_tratamento"
+            }
+        ]
+    },
+    "5": {
+        "tipo": "Impressora",
+        "nome": "Qualer",
+        "responsavel": "Qualquer",
+        "setor": "Qualquer",
+        "vulnerabilidades": [
+            {
+                "descricao": "Qualquer",
+                "categoria": "Autenticacao",
+                "severidade": "Baixa",
+                "status": "Aberta"
+            }
+        ]
     }
 }

@@ -20,7 +20,7 @@ class tipo_ativo(Enum):
 class categoria(Enum):
     Autenticacao = 1 
     Controle_de_acesso = 2
-    Softaware_desatualizado = 3
+    Software_desatualizado = 3
     Rede= 4
     Banco_de_dados = 5
     Configuração_incorreta = 6
@@ -52,8 +52,6 @@ def cadastrar_ativo():
 #Menu de cadastros
     print("""  
 ====MENU 2 - CADASTRO DE ATIVO====
-
-Caso deseje voltar ao menu principal digite 0!
           
 Tipos de ativo:
 """ )
@@ -61,9 +59,23 @@ Tipos de ativo:
     for tipo in tipo_ativo:
         print(f"{tipo.value} - {tipo.name}") 
 
-    codigo_ativo = int(input("\n\nEscolha o tipo de ativo: "))
-    tipo_escolhido = tipo_ativo(codigo_ativo)
+    print("0 - Para retornar ao menu principal")
 
+    while True:
+
+        try:
+            codigo_ativo = int(input("\nEscolha o tipo de ativo: "))
+
+            if codigo_ativo == 0:
+                voltar_menu()
+                return
+
+            tipo_escolhido = tipo_ativo(codigo_ativo)
+            break
+
+        except ValueError:
+            print("Opção inválida.")
+    
     nome = input("Nome do ativo: ")
     responsavel = input("Responsável: ")
     setor = input("Setor: ")
@@ -78,12 +90,13 @@ Tipos de ativo:
 
     print(f"\nAtivo cadastrado com ID {id_ativo}\n\n")
 
-    id_ativo += 1
+    id_ativo += 1   
 
     salvar_dados()
     voltar_menu()
 
 def cadastrar_vulnerabilidade():
+
 
     #Menu de cadastro de vulnerabilidade
     print("""  
@@ -91,47 +104,79 @@ def cadastrar_vulnerabilidade():
 
 """ )
 
-    id_busca = int(input("Digite o ID do ativo: "))
+    while True:
+        try:
+            id_busca = int(input("Digite o ID do ativo (0 para voltar): "))
+            
+            if id_busca == 0:
+                voltar_menu()
+                return
+            break
 
-    if ativos[id_busca]["vulnerabilidades"]:
-        print(
-        "\nEste ativo já possui uma vulnerabilidade cadastrada."
-        "\nPara modificar os dados ja cadastrados va em ""4 - ATUALIZAR"" no Menu Inicial."
-        )
-        voltar_menu()
-        return
+        except ValueError:
+            print("Digite apenas números!")
 
     if id_busca not in ativos:
         print("\nAtivo nao encontrado.")
         voltar_menu()
         return
+    
+    if ativos[id_busca]["vulnerabilidades"]:
+        print(
+        "\nEste ativo já possui uma vulnerabilidade cadastrada."
+        "\nPara modificar os dados ja cadastrados va em ""4 - ATUALIZAR"" no Menu Inicial.")
+        voltar_menu()
+        return
 
-         #Continua o cadastro de vulnerabilidade
-    descricao = input("Descreva a vulnerabilidade: ")
+    #Continua o cadastro de vulnerabilidade
+    while True:
+         descricao = input("Descreva a vulnerabilidade: ").strip()
 
+         if descricao:
+            break
+
+    print("A descrição não pode ficar vazia!")
+   
     print("\nCategorias da vulnerabilidade:")
     for tipo in categoria:
         print(f"{tipo.value} - {tipo.name}") 
 
-        codigo_categoria = int(input("\n\nEscolha a categoria: "))
-        categoria_escolhida = categoria(codigo_categoria)
+    while True:
+        try:
+            codigo_categoria = int(input("\nEscolha a categoria: "))
+            categoria_escolhida = categoria(codigo_categoria)
+            break
 
-        print("\nSeveridades da vulnerabilidade:")
-        for tipo in severidade:
-            print(f"{tipo.value} - {tipo.name}") 
+        except ValueError:
+            print("Categoria inválida.")
 
-        codigo_severidade = int(input("\n\nEscolha a severidade: "))
-        severidade_escolhida = severidade(codigo_severidade)
+    print("\nSeveridades da vulnerabilidade:")
+    for tipo in severidade:
+        print(f"{tipo.value} - {tipo.name}") 
 
-        print("\nStatus da vulnerabilidade:")
-        for tipo in status:
-            print(f"{tipo.value} - {tipo.name}") 
+    while True:
+        try:
+            codigo_severidade = int(input("\nEscolha a severidade: "))
+            severidade_escolhida = severidade(codigo_severidade)
+            break
 
-        codigo_status = int(input("\n\nEscolha o status: "))
-        status_escolhido = status(codigo_status)
+        except ValueError:
+            print("Severidade inválida.")
+    
+    print("\nStatus da vulnerabilidade:")
+    for tipo in status:
+        print(f"{tipo.value} - {tipo.name}") 
 
+    while True:
+        try:
+            codigo_status = int(input("\nEscolha o status: "))
+            status_escolhido = status(codigo_status)
+            break
 
-        vulnerabilidade = {
+        except ValueError:
+            print("Status inválido.")
+
+    vulnerabilidade = {
             "descricao": descricao,
             "categoria": categoria_escolhida.name,
             "severidade": severidade_escolhida.name,
@@ -139,10 +184,10 @@ def cadastrar_vulnerabilidade():
 
         }
 
-        ativos[id_busca]["vulnerabilidades"].append(vulnerabilidade)
+    ativos[id_busca]["vulnerabilidades"].append(vulnerabilidade)
 
-        print("\n\n\nVulnerabilidade cadastrada!")
-        salvar_dados()
+    print("\n\n\nVulnerabilidade cadastrada!")
+    salvar_dados()
 
     voltar_menu()
 
@@ -192,11 +237,23 @@ def menu_atualizar_cadastro():
 ==========MENU 4 - ATUALIZACAO DE CADASTROS==========
           
 1 - Atualizar dados do ativo
-2 - Atualizar dados de vulnerabilidades     
-3 - Atualizar ambos     
+2 - Atualizar dados de vulnerabilidades
+0 - Para retornar ao menu principal
 
 """)      
-    opcao = int(input("Escolha qual tipo de dado deseja atualizar: "))
+    
+    while True:
+
+        try:
+            opcao = int(input("Escolha qual tipo de dado deseja atualizar: "))
+
+            if opcao == 0:
+                voltar_menu()
+                return
+            break
+
+        except ValueError:
+            print("Opção inválida.")
 
     match opcao:
 
@@ -206,16 +263,22 @@ def menu_atualizar_cadastro():
         case 2: 
             atualizar_vulnerabilidade()
 
-        case 3:
-            atualizar_ativo()
-            atualizar_vulnerabilidade()
-
         case _:
             print("Opcao invalida!")
 
 def atualizar_ativo():
     
-    id_busca = int(input("\nDigite o ID do ativo: "))
+    while True:
+        try:
+            id_busca = int(input("Digite o ID do ativo (0 para voltar): "))
+
+            if id_busca == 0:
+                voltar_menu()
+            break
+
+        except ValueError:
+            print("Digite apenas números.")
+        
 
     if id_busca not in ativos:
         print("\nO ativo nao foi encontrado!\n\n")
@@ -247,7 +310,16 @@ def atualizar_ativo():
 def atualizar_vulnerabilidade():
 
     #Verifica se o ID existe e se o ativo alocado no ID possuiu vulnerabilidade cadastrada
-    id_busca = int(input("Digite o ID do ativo: \n"))
+    while True:
+        try:
+            id_busca = int(input("Digite o ID do ativo (0 para voltar): "))
+
+            if id_busca == 0:
+                voltar_menu()
+            break
+
+        except ValueError:
+            print("Digite apenas números.")
 
     if id_busca not in ativos:
         print("\nO ativo nao foi encontrado!")
@@ -259,33 +331,61 @@ def atualizar_vulnerabilidade():
         print("Este ativo nao possui vulnerabilidades.")
         return
 
-    print("\nVulnerabilidades:")
+    v = vulnerabilidade[0]
 
-    for indice, v in enumerate(vulnerabilidade, start=1):
-        print(f"{indice} - {v['descricao']}")
+    #Atualizar descricao
+    descricao = input(
+        f"Descrição ({v['descricao']}) (ENTER para manter): ")
 
-    escolha = int(input("\nEscolha a vulnerabilidade: ")) - 1
+    #Atualizar categoria
+    
+    print("\nCategorias disponiveis:")
+    for item in categoria:
+        print(f"{item.value} - {item.name}")
 
-    v = vulnerabilidade[escolha]
+    codigo_categoria = input(f"Categoria atual ({v['categoria']}) (ENTER para manter): ")
 
-    descricao = input(f"Descrição ({v['descricao']}): ")
-    categoria = input(f"Categoria ({v['categoria']}): ")
-    severidade = input(f"Severidade ({v['severidade']}): ")
-    status = input(f"Status ({v['status']}): ")
+    #Atualizar severidade
+    print("\nSeveridades disponiveis:")
+    for item in severidade:
+        print(f"{item.value} - {item.name}")
+
+    codigo_severidade = input(f"Severidade atual ({v['severidade']}) (ENTER para manter): ")
+
+    #Atualizar status
+    print("\nStatus disponiveis:")
+    for item in status:
+        print(f"{item.value} - {item.name}")
+
+    codigo_status = input(f"Status atual ({v['status']}) (ENTER para manter): ")
+
 
     if descricao:
         v["descricao"] = descricao
+        
+    if codigo_categoria:
+        try:
+            v["categoria"] = categoria(int(codigo_categoria)).name
 
-    if categoria:
-        v["categoria"] = categoria
+        except ValueError:
+            print("Categoria invalida.")
+    
+    if codigo_severidade:
+        try:
+            v["severidade"] = severidade(int(codigo_severidade)).name
+        
+        except ValueError:
+            print("Severidade invalida.")
+        
 
-    if severidade:
-        v["severidade"] = severidade
+    if codigo_status:
+        try:
+            v["status"] = status(int(codigo_status)).name
 
-    if status:
-        v["status"] = status
+        except ValueError:
+            print("Status invalido.")
 
-    print("\nVulnerabilidade atualizada!\n\n")
+    print("\nVulnerabilidade atualizada com sucesso!\n\n")
 
     salvar_dados()
     voltar_menu()
@@ -298,7 +398,16 @@ def excluir_cadastro():
 """ )
     global id_ativo
 
-    id_busca = int(input("Digite o ID do ativo que deseja excluir: "))
+    while True:
+        try:
+            id_busca = int(input("Digite o ID do ativo (0 para voltar): "))
+
+            if id_busca == 0:
+                voltar_menu()
+            break
+
+        except ValueError:
+            print("Digite apenas números.")
 
     if id_busca in ativos:
 
@@ -363,7 +472,7 @@ def menu():
         print("""              
 Bem vindo ao sistema CRUD de ativos de TI!
               
-======MENU 1 - INICIAL=========
+===========MENU 1 - INICIAL===============
 
 Escolha uma opcao para iniciar:
               
@@ -374,7 +483,7 @@ Escolha uma opcao para iniciar:
 5 - Excluir
 6 - Sair
 
-===============================
+==========================================
 """)
 
         opcao = input("Escolha: ")
@@ -417,3 +526,4 @@ Escolha uma opcao para iniciar:
 carregar_dados()
 
 menu()
+
