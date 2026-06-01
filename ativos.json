@@ -1,0 +1,16 @@
+{
+    "1": {
+        "tipo": "Notebook",
+        "nome": "Dell",
+        "responsavel": "Dannubia",
+        "setor": "Engeharia",
+        "vulnerabilidades": [
+            {
+                "descricao": "Aparelho sem senha",
+                "categoria": "Controle_de_acesso",
+                "severidade": "Alta",
+                "status": "Em andamento"
+            }
+        ]
+    }
+}

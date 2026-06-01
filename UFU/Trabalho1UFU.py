@@ -7,6 +7,7 @@ a esses ativos
 from time import sleep
 from enum import Enum
 import os
+import json
 
 #Uso do Enum para classificar a cada ativos cadastrado
 class tipo_ativo(Enum):
@@ -52,6 +53,8 @@ def cadastrar_ativo():
     print("""  
 ====MENU 2 - CADASTRO DE ATIVO====
 
+Caso deseje voltar ao menu principal digite 0!
+          
 Tipos de ativo:
 """ )
     
@@ -77,6 +80,7 @@ Tipos de ativo:
 
     id_ativo += 1
 
+    salvar_dados()
     voltar_menu()
 
 def cadastrar_vulnerabilidade():
@@ -84,18 +88,30 @@ def cadastrar_vulnerabilidade():
     #Menu de cadastro de vulnerabilidade
     print("""  
 ====MENU 2 - CADASTRO DE VULNERABILIDADES====
+
 """ )
 
-    id_busca = int(input("ID do ativo: "))
+    id_busca = int(input("Digite o ID do ativo: "))
 
-    if id_busca in ativos:
-    
-    #Continua o cadastro de vulnerabilidade
-        descricao = input("Descrição da vulnerabilidade: ")
+    if ativos[id_busca]["vulnerabilidades"]:
+        print(
+        "\nEste ativo já possui uma vulnerabilidade cadastrada."
+        "\nPara modificar os dados ja cadastrados va em ""4 - ATUALIZAR"" no Menu Inicial."
+        )
+        voltar_menu()
+        return
 
-        print("\nCategorias da vulnerabilidade:")
-        for tipo in categoria:
-            print(f"{tipo.value} - {tipo.name}") 
+    if id_busca not in ativos:
+        print("\nAtivo nao encontrado.")
+        voltar_menu()
+        return
+
+         #Continua o cadastro de vulnerabilidade
+    descricao = input("Descreva a vulnerabilidade: ")
+
+    print("\nCategorias da vulnerabilidade:")
+    for tipo in categoria:
+        print(f"{tipo.value} - {tipo.name}") 
 
         codigo_categoria = int(input("\n\nEscolha a categoria: "))
         categoria_escolhida = categoria(codigo_categoria)
@@ -126,9 +142,7 @@ def cadastrar_vulnerabilidade():
         ativos[id_busca]["vulnerabilidades"].append(vulnerabilidade)
 
         print("\n\n\nVulnerabilidade cadastrada!")
-
-    else:
-        print("\nAtivo não encontrado")
+        salvar_dados()
 
     voltar_menu()
 
@@ -142,6 +156,7 @@ def consultar_cadastro():
     if not ativos:
 
         print("\n\nNenhum ativo cadastrado!\n\n")
+        voltar_menu()
         return
     
     for id_atual, dados in ativos.items():
@@ -168,6 +183,7 @@ def consultar_cadastro():
                 print(f"Status: {v['status']}")
                 print("____________________________________\n")
 
+   
     voltar_menu()
 
 def menu_atualizar_cadastro():
@@ -225,6 +241,7 @@ def atualizar_ativo():
 
     print("\nO cadastro foi atualizado com sucesso!")
 
+    salvar_dados()
     voltar_menu()
 
 def atualizar_vulnerabilidade():
@@ -270,6 +287,7 @@ def atualizar_vulnerabilidade():
 
     print("\nVulnerabilidade atualizada!\n\n")
 
+    salvar_dados()
     voltar_menu()
 
 def excluir_cadastro():
@@ -291,7 +309,45 @@ def excluir_cadastro():
     else: 
         print("\nAtivo não encontrado!")
 
+    salvar_dados()
     voltar_menu()
+
+def salvar_dados():
+
+    with open("ativos.json", "w", encoding="utf-8") as arquivo:
+
+        json.dump(
+            ativos,
+            arquivo,
+            indent=4,
+            ensure_ascii=False
+        )
+
+def carregar_dados():
+
+    global ativos
+    global id_ativo
+
+    try:
+        with open("ativos.json", "r", encoding="utf-8") as arquivo:
+
+            ativos = json.load(arquivo)
+
+            ativos = {
+                int(chave): valor
+                for chave, valor in ativos.items()
+            }
+
+        if ativos:
+            id_ativo = max(ativos.keys()) + 1
+
+        else:
+            id_ativo = 1
+
+    except FileNotFoundError:
+
+        ativos = {}
+        id_ativo = 1
 
 def voltar_menu():
     input("\nPressione ENTER para retornar ao menu inicial!")
@@ -356,5 +412,8 @@ Escolha uma opcao para iniciar:
 
             case _:
                 print("Digite uma opção valida!")
+
+#Carrega os dados ao iniciar
+carregar_dados()
 
 menu()
