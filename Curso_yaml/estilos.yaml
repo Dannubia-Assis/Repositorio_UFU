@@ -1,3 +1,6 @@
+# Deve-se sempre estar atendo aos espaços, não se costuma identar
+# Tipo bloco
+
 host1: geek
 datacenter1:
   location: São Paulo
@@ -6,7 +9,11 @@ role1:
   - web
   - dns
 
+--- # marca onde um bloco termina e outro começa
+
+# Tipo flow
 
 host2: "geek"
 datacenter2: {location: São Paulo, router: 42}
 roles2: [web, dns]
+  
