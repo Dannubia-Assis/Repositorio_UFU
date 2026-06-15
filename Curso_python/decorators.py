@@ -43,3 +43,5 @@ def apresentando():
 #Testando
 
 apresentando()
+
+#OBS nao confunda decorator com decorator function
