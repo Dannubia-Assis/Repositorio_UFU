@@ -7,6 +7,8 @@ Ou seja, as ações que este objeto pode realizar no seu sistema.
 Métodos são divididos em dois grupos:
 - Métodos de instância
 - Métodos de classe
+- Metodos privados
+- Metodos estaticos
 
 Metodo __init__ - construtor da classe
 
