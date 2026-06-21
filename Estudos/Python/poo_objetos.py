@@ -74,4 +74,4 @@ cc = ContaCorrente('5000', '2000', cliente1)
 
 cc.mostra_cliente()
 
-cc._ContaCorrente__cliente.diz()
+cc._ContaCorrente__cliente.diz() 
