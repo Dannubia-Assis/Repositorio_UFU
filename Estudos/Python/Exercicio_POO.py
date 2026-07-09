@@ -79,7 +79,7 @@ class Agenda():
     def cadastrar_contato(self, contato):
        self.contatos.append(contato) #Adiciona o contato a lista self.contatos[]
        print()
-       print(f'Contato cadastrado com sucesso!')
+       print('Contato cadastrado com sucesso!')
 
     def buscar_contato(self, id):
 
