@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "tipo": "Software",
+        "nome": "wps",
+        "responsavel": "Giovana",
+        "setor": "Contabilidade",
+        "vulnerabilidades": []
+    },
+    {
+        "id": 2,
+        "tipo": "Roteador",
+        "nome": "Blbla",
+        "responsavel": "Dannubia",
+        "setor": "Cozinha",
+        "vulnerabilidades": []
+    }
+]

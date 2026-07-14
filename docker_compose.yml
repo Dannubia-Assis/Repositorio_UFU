@@ -1,0 +1,8 @@
+services:
+  crud-ativos:
+    build: .
+    container_name: crud_ativos_POO
+    volumes:
+      - ./dados:/app/dados
+    stdin_open: true #Mantem o terminal iterativo
+    tty: true
