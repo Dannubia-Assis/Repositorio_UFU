@@ -349,20 +349,7 @@ Escolha a opcao para atualizar:
                                 "0 - Cancelar")
                                 
                                 #Atualiza o cadastro de vulneravilidades
-
-                                if not ativo.vulnerabilidades:
-                                    print("\nNenhuma vulnerabilidade cadastrada para este ativo.")
-                                    voltar_menu()
-                                    break
                                 
-                                indice = escolher_indice("\nQual vulnerabilidade deseja atualizar? ",
-                                ativo.vulnerabilidades)
-
-                                if indice is None:
-                                    print("\nOperação cancelada.")
-                                    voltar_menu()
-                                    break
-
                                 nova_descricao = ler_texto("Nova descrição (Enter para manter): ",
                                 permitir_enter=True)
 
@@ -438,18 +425,20 @@ Escolha a opcao para remover:
                                     id_procurado = int(input("Digite o ID do ativo: "))
 
                                     ativo = equipamento.buscar_cadastro_ativo(id_procurado)
-
+                                    
                                     if ativo is None:
                                         print("\nNenhum ativo encontrado nesse ID.")
                                         voltar_menu()
-                                        continue
-
+                                        break
+                                    
+                                    if not ativo.possui_vulnerabilidades():
+                                        print("\nNenhuma vulnerabilidade cadastrada para este ativo.")
+                                        voltar_menu()
+                                        break
 
                                     ativo.imprimir_vulnerabilidades()
 
-
-                                    indice = int(
-                                    input("\nQual vulnerabilidade deseja remover? ")) - 1
+                                    indice = int(input("\nQual vulnerabilidade deseja remover? ")) - 1
 
 
                                     try:
